@@ -1,6 +1,17 @@
 import {REACT_ELEMENT_TYPE} from "./ReactSymbols"
 import { Component } from "./ReactBaseClasses";
 
+/**
+ * @typedef {object} Props
+ * @property {Array<VirtualDOM>} children
+ * 
+ * @typedef {object} VirtualDOM
+ * @property {string} $$typeof 
+ * @property {string|null} key 
+ * @property {*} [ref]
+ * @property {Props} props
+ */
+
 // 不需要放进props里的config
 const RESERVED_PROPS = {
   key: true,
@@ -8,6 +19,14 @@ const RESERVED_PROPS = {
   __self: true,
   __source: true,
 }
+
+/**
+ * create virutal dom
+ * @param {string} type 
+ * @param {object} config 
+ * @param {VirtualDOM[] | sring} children 
+ * @returns {VirtualDOM}
+ */
 export function createElement(type, config, children){
   const props = {};
   let key = null; // 默认为null，使用索引来对比
