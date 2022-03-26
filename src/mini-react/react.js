@@ -51,6 +51,7 @@ export function createElement(type, config, children){
  * props.children是一个ReactNode， = null|string|number|React Element
  * ReactNode表示一个可以渲染的值，包括React Element
  */
+  return element;
 }
 
 const React = {
