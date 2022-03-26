@@ -80,12 +80,12 @@ function workloop(deadline) {
     requestIdleCallback(workloop);
   } else {
     console.log(rootFiber);
-    // commitRoot(rootFiber);
+    commitRoot(rootFiber);
   }
 }
 
 /**
- * commit
+ * commit 将子节点关联起来
  * @param {FiberNode} rootFiber
  */
 function commitRoot(rootFiber) {
@@ -97,6 +97,7 @@ function commitRoot(rootFiber) {
       case PLACEMENT:
         commitPlacement(currentEffect);
     }
+    currentEffect = currentEffect.nextEffect;
   }
 }
 
@@ -140,7 +141,9 @@ function performUnitOfWork(workInProgress) {
 }
 
 /**
- * Fiber在结束的时候，要创建真实的DOM元素
+ * Fiber在结束的时候，要
+ * 1. 创建真实的DOM元素（只createElement，不进行appendChild。appendChild在commit阶段进行）
+ * 2. 创建effect list
  * @param {FiberNode} workInProgress
  */
 function completeUnitOfWork(workInProgress) {
@@ -149,15 +152,8 @@ function completeUnitOfWork(workInProgress) {
   switch (workInProgress.tag) {
     case TAG_HOST:
       stateNode = createStateNode(workInProgress);
-      // let nextNode = workInProgress.child;
-      // while(nextNode){
-      //   stateNode.appendChild(nextNode.stateNode);
-      //   nextNode = nextNode.sibling;
-      // }
-      // console.log(workInProgress.stateNode);
       break;
     case TAG_ROOT:
-      // workInProgress.stateNode.appendChild(workInProgress.child.stateNode);
       break;
   }
 
