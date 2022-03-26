@@ -1,5 +1,5 @@
 import {REACT_ELEMENT_TYPE} from "./ReactSymbols"
-
+import { Component } from "./ReactBaseClasses";
 
 // 不需要放进props里的config
 const RESERVED_PROPS = {
@@ -44,12 +44,18 @@ export function createElement(type, config, children){
     key,
     props
   }
-}
-
-/**
+  /**
  * children
  * 可能是一个元素，字符串，数字，null
  * 可能有零个儿子，一个儿子，多个儿子
  * props.children是一个ReactNode， = null|string|number|React Element
  * ReactNode表示一个可以渲染的值，包括React Element
  */
+}
+
+const React = {
+  createElement,
+  Component
+};
+
+export default React;
